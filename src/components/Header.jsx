@@ -4,7 +4,7 @@ import Logo from '../assets/images/logo.png';
 import { ReactComponent as ShoppingCart } from '../assets/icons/shopping-cart.svg';
 import './Header.css';
 
-const Header = (props) => {
+function Header(props) {
     // Headerul primeste acum informatiile despre user si functia de signOut de la Firebase.
     // ATENTIE! Aceste prop-uri au fost pasate din App in Home in Layout in Header, ceea ce e ORIBIL.
     // Se numeste prop drilling tehnica asta si nu ne dorim asa ceva. Cum vom scapa de ea?

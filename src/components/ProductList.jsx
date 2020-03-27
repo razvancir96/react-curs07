@@ -1,7 +1,7 @@
 import React from 'react';
 import ProductItem from './ProductItem';
 
-const ProductList = (props) => {
+function ProductList(props) {
     // Extragem vectorul de produse primit din Category
     const { products } = props;
 

@@ -7,7 +7,7 @@ import './Login.css'
 
 // ATENTIE! Cu toate ca Login are constante si functii, nu e nevoie sa fie declarata
 // drept class, pentru ca nu are un state propriu.
-const Login = (props) => {
+function Login(props) {
     // Daca nu suntem siguri ce props-uri vin, le dam console.log.
     console.log(props);
     // Facem destructuring la props-urile de care avem nevoie.

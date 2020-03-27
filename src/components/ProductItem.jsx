@@ -2,7 +2,7 @@ import React from 'react';
 // Atentie! avem si un fisier css
 import './ProductItem.css';
 
-const ProductItem = (props) => {
+function ProductItem(props) {
     // extragem props-urile de interes
     const {name, price, currency, image} = props;
 
