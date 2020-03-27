@@ -19,7 +19,8 @@ function Header(props) {
 
     return(
         <header className="border-bottom mb-3">
-            <div className="container-fluid container-min-max-width d-flex justify-content-between align-items-center">
+            <div className="container-fluid container-min-max-width
+                            d-flex justify-content-between align-items-center">
                 <Link to="/" className="my-3">
                     <img src={Logo} alt="Sirluggia Shop" className="logo"/>
                 </Link>
@@ -35,7 +36,7 @@ function Header(props) {
                         { user
                             // La click pe buton se va apela metoda handleSignOut.
                             ? <p className="logout h5" onClick={handleSignOut}>Delogare</p>
-                            : <Link to="/login" className="text-dark h5">Logare</Link>
+                            : <Link to="/login" className="h5">Logare</Link>
                         }
                         <ShoppingCart className="ml-2"/>
                     </div>

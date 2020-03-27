@@ -35,7 +35,7 @@ class Category extends Component {
     render() {
         return (
             <Layout>
-                <div className="content-min-height container-fluid container-min-max-width">
+                <div className="container-fluid container-min-max-width">
                     <h2>{ this.state.category.name }</h2>
                     <div className="row">
                         {/* Pasam metoda filter products catre ProductListSidebar, avand grija sa nu pierdem this-ul */}
