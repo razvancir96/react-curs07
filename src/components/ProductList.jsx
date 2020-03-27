@@ -6,23 +6,18 @@ function ProductList(props) {
     const { products } = props;
 
     return (
-        <div className="col-9">
-            {/* ATENTIE! Prima oara cand este randata componenta, produsele inca nu au venit!
-            Deci pentru a evita erori, trebuie sa verificam daca avem produse! */}
-            <div className="row">
-                { products
-                    ? products.map((product) => {
-                        return <ProductItem
-                            // Pentru a pasa toate proprietatile obiectului product mai departe
-                            // ca props, putem folosi urmatoarea sintaxa:
-                            {...product}
-                            // Nu uitam sa pasam cheia!
-                            key={product.id}
-                        />
-                    })
-                    : null
-                }
-            </div>
+        <div className="row mb-4">
+            {
+                products.map((product) => {
+                    return <ProductItem
+                        // Pentru a pasa toate proprietatile obiectului product mai departe
+                        // ca props, putem folosi urmatoarea sintaxa:
+                        {...product}
+                        // Nu uitam sa pasam cheia!
+                        key={product.id}
+                    />
+                })
+            }
         </div>
     );
 }
