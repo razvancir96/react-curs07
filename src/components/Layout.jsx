@@ -5,7 +5,7 @@ import './Layout.css';
 
 const Layout = (props) => {
     // Preluam props-urile de interes.
-    const {user, signOut, handleSignOut} = props;
+    const {user, signOut} = props;
 
     return(
         <div className="layout">
@@ -13,7 +13,6 @@ const Layout = (props) => {
             <Header
                 user={user}
                 signOut={signOut}
-                handleSignOut={handleSignOut}
             />
                 { props.children }
             <Footer/>

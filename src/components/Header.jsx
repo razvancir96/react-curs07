@@ -5,21 +5,16 @@ import { ReactComponent as ShoppingCart } from '../assets/icons/shopping-cart.sv
 import './Header.css';
 
 const Header = (props) => {
-    // Headerul primeste acum informatii descpre user, functia de signOut de la Firebase si functia
-    /// handleSignOut, care va modifica in App.js informatiile despre user. ATENTIE! Aceste prop-uri
-    // au fost pasate din App in Home in Layout in Header, ceea ce e ORIBIL. Se numeste prop drilling
-    // tehnica asta si nu ne dorim asa ceva. Cum vom scapa de ea? La cursul urmatopr, Redux ne salveaza!
-    const {user, signOut, handleSignOut} = props;
+    // Headerul primeste acum informatiile despre user si functia de signOut de la Firebase.
+    // ATENTIE! Aceste prop-uri au fost pasate din App in Home in Layout in Header, ceea ce e ORIBIL.
+    // Se numeste prop drilling tehnica asta si nu ne dorim asa ceva. Cum vom scapa de ea?
+    // La cursul urmatopr, Redux ne salveaza!
+    const {user, signOut} = props;
 
-    // La click-ul pe butonul de delogare din header se va executa aceasta functie
-    function handleHeaderSignOut() {
-        // Apelam functia signOut, venita de la firebase si pasata tocmai din App.js.
-        const signOutResponse = signOut();
-        // Functia va returna un Promise, in caz de succes.
-        signOutResponse.then(() => {
-            // handleSignOut este metoda pasata tocmai din App.js, deci va modifica datele userului in App.js.
-            handleSignOut();
-        });
+    // La click-ul pe butonul de delogare din header se va executa metoda signOut, venita din Firebase,
+    // pasata prin props-uri tocmai din App.js.
+    function handleSignOut() {
+        signOut();
     }
 
     return(
@@ -29,17 +24,17 @@ const Header = (props) => {
                     <img src={Logo} alt="Sirluggia Shop" className="logo"/>
                 </Link>
                 <div>
-                    {/* ATENTIE! Daca avem un user si acesta are un nume, atunci ii vom afisa un mesaj.
-                    E necesar si sa verificam daca avem user, pentru ca daca user e undefined, vom primi eroarea
-                    "cannot read propertu uid of undefined" */}
-                    { user && user.uid
+                    {/* ATENTIE! Daca avem informatii despre user, atunci ii vom afisa un mesaj.
+                    Daca userul nu este logat, se va primi null ca valoare, deci nu com afisa nimic.*/}
+                    { user
                         ? <p>Salut, {user.displayName}!</p>
                         : null
                     }
                     <div className="d-flex justify-content-end">
                         {/* Daca avem user, afisam textul "delogare", altfel altfel afisam "logare" */}
-                        { user && user.uid
-                            ? <p className="logout h5" onClick={() => handleHeaderSignOut()}>Delogare</p>
+                        { user
+                            // La click pe buton se va apela metoda handleSignOut.
+                            ? <p className="logout h5" onClick={handleSignOut}>Delogare</p>
                             : <Link to="/login" className="text-dark h5">Logare</Link>
                         }
                         <ShoppingCart className="ml-2"/>

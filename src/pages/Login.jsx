@@ -11,20 +11,19 @@ const Login = (props) => {
     // Daca nu suntem siguri ce props-uri vin, le dam console.log.
     console.log(props);
     // Facem destructuring la props-urile de care avem nevoie.
-    const {signInWithGoogle, updateUserState, history} = props;
+    // signInWithGoogle vine de la Firebase, history de la componenta Route.
+    const {signInWithGoogle, history} = props;
 
     // Functia va fi apelata la click-ul pe butonul de logare cu Google.
-    function handleGoogleLogin(signInWithGoogle, updateUserState) {
-        // Apelul functiei signInWithGoogle intoarce un PROMISE(vezi teorie).
+    function handleGoogleLogin() {
+        // Apelul functiei signInWithGoogle intoarce un PROMISE.
         const googleLoginRespone = signInWithGoogle();
-        // Pentru a putea lua informatia din Promise, trebuie sa apelam metoda .then.
-        googleLoginRespone.then(loginInfo => {
-            // Observam ca informatiile importante despre user se gasesc in obiectul numit user
-            console.log(loginInfo);
-            const user = loginInfo.user;
-            // ATENTIE! updateUserState e pasata din App si va actualiza state-ul in App, cu datele userului.
-            updateUserState(user);
-            // Dupa ce ne-am logat, suntem redirectati catre home (history vine ca prop din Route).
+        // In caz de succes, Promise-ul va intra pe metoda .then.
+        // ATENTIE, .then se executa cand Promise-ul a fost rezolvat(a iesit din starea PENDING).
+        // Daca logarea ar esua, nu s-ar intra pe .then, ci pe .catch.
+        googleLoginRespone.then(() => {
+            // Abia DUPA ce s-a terminat logarea trebuie sa fim redirectati catre Home.
+            // Cu history.push schimbam ruta.
             history.push('/');
         });
     }
@@ -43,7 +42,8 @@ const Login = (props) => {
             <button
                 // Clasele sunt de Bootstrap, din nou, daca nu le stiti, cautati-le!
                 className="btn btn-outline-dark d-flex align-items-center"
-                onClick={() => handleGoogleLogin(signInWithGoogle, updateUserState)}
+                // La click apelam functia handleGoogleLogin
+                onClick={handleGoogleLogin}
             >
                 <Google className="w-50 mr-3"/>
                 {/* text-nowrap nu lasa textul sa se intinda pe mai multe randuri */}

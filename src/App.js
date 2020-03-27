@@ -28,25 +28,7 @@ const providers = {
 class App extends React.Component {
   constructor() {
     super();
-    this.state = {
-      user: {
-
-      }
-    }
-  }
-
-  // Functia updateUserState va fi pasata catre componenta de Login, iar dupa logare, cand vor fi disponibile]
-  // datele userului, state-ul aplicatiei va fi actualizat cu datele userului.
-  updateUserState(userInfo) {
-    this.setState({user: userInfo});
-  }
-
-  // Functia handleSignOut va fi pasata catre componenta Header, iar la click pe "Delogare", se va actualiza state-ul
-  // aplicatiei, stergand datele userului.
-  // ATENTIE! Header-ul se afla in multiple pagini, deci la ce stim acum, functia asta ar trebui trimisa catre fiecare
-  // pagina care are Header :). De data viitoare vom fixa aceasta problema.
-  handleSignOut() {
-    this.setState({user: ''});
+    this.state = {}
   }
 
   render() {
@@ -65,26 +47,21 @@ class App extends React.Component {
             render={(props) => <Login
               // props-urile de aici sunt props-urile referitoare la router(match, history...)
               {...props}
-              // Trebuie sa trimitem mai departe metoda signInWithGoogle, furnizata de firebase, pentru
+              // Trebuie sa trimitem mai departe metoda signInWithGoogle, furnizata de Firebase, pentru
               // a fi apelata din pagina de login.
               signInWithGoogle={this.props.signInWithGoogle}
-              // Dupa ce logarea se va executa cu succes, va returna niste informatii trebuie fie aduse in App.
-              // => ARROW FUNCTION!
-              updateUserState={(userInfo) => this.updateUserState(userInfo)}
             />}
           />
           <Route
             exact path='/'
-            // trebuie sa trimitem props-uri => render
+            // Trebuie sa trimitem props-uri către componenta din Route => avem nevoie de render
             render={(props) => <Home
               {...props}
-              // trimitem informatiile despre user, dar metoda prin care se poate deloga, catre home
-              user={this.state.user}
-              // metoda signOut, venita de la firebase, cand e apelata delogheaza userul curent
+              // Trimitem informatiile despre user, venite de la Firebase, catre Home.
+              user={this.props.user}
+              // Trimitem metoda signOut, venita de la Firebase, catre Home. Cand va fi apelata
+              // userul se va deloga.
               signOut={this.props.signOut}
-              // ATENTIE! Cand se va apela metoda Sign out, trebuie modificate informatiile despre user din App!
-              // => arrow function
-              handleSignOut={() => this.handleSignOut()}
             />}
           />
           <Route path='/about' component={About}/>
